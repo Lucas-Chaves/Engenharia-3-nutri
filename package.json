@@ -20,8 +20,8 @@
     "moment": "^2.22.2",
     "mongoose": "^5.3.10",
     "multer": "^1.4.1",
-    "mysql2": "^1.6.4",
-    "sequelize": "^4.41.1"
+    "mysql2": "^1.6.5",
+    "sequelize": "^4.44.0"
   },
   "devDependencies": {
     "eslint": "^5.8.0",
