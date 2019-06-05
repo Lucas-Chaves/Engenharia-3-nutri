@@ -1,6 +1,8 @@
 const express = require('express');
 const { getAllUsers, getUserById, createUser, deleteUser } = require('../controller/user');
 const { getAllGrupo, getGrupoById, createGrupo, deleteGrupo  } = require('../controller/grupo');
+const { getAllImc, getImcById, createImc, deleteImc  } = require('../controller/imc');
+
 
 const services = express.Router();
 
@@ -17,3 +19,8 @@ services.get('/grupo', getAllGrupo);
 services.get('/grupo/:grupoId', getGrupoById);
 services.post('/grupo', createGrupo);
 services.delete('/grupo/:grupoId', deleteGrupo);
+//Rotas para IMC
+services.get('/imc/:userId', getAllImc);
+services.get('/imc/:userId/:imcId', getImcById);
+services.post('/imc', createImc);
+services.delete('/imc/:userId/:imcId', deleteImc);
