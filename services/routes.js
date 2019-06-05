@@ -2,6 +2,7 @@ const express = require('express');
 const { getAllUsers, getUserById, createUser, deleteUser } = require('../controller/user');
 const { getAllGrupo, getGrupoById, createGrupo, deleteGrupo  } = require('../controller/grupo');
 const { getAllImc, getImcById, createImc, deleteImc  } = require('../controller/imc');
+const { getAllReceita, getReceitaById, createReceita, deleteReceita  } = require('../controller/receita');
 
 
 const services = express.Router();
@@ -24,3 +25,8 @@ services.get('/imc/:userId', getAllImc);
 services.get('/imc/:userId/:imcId', getImcById);
 services.post('/imc', createImc);
 services.delete('/imc/:userId/:imcId', deleteImc);
+//Rotas para Receitas
+services.get('/receita', getAllReceita);
+services.get('/receita/:receitaId', getReceitaById);
+services.post('/receita', createReceita);
+services.delete('/receita/:receitaId', deleteReceita);
