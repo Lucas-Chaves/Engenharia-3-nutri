@@ -3,7 +3,7 @@ const { getAllUsers, getUserById, createUser, deleteUser } = require('../control
 const { getAllGrupo, getGrupoById, createGrupo, deleteGrupo  } = require('../controller/grupo');
 const { getAllImc, getImcById, createImc, deleteImc  } = require('../controller/imc');
 const { getAllReceita, getReceitaById, createReceita, deleteReceita  } = require('../controller/receita');
-
+const { login } = require('../controller/oauth');
 
 const services = express.Router();
 
@@ -14,7 +14,7 @@ services.get('/user', getAllUsers);
 services.get('/user/:userId', getUserById);
 services.post('/user', createUser);
 services.delete('/user/:userId', deleteUser);
-module.exports = services;
+
 //Rotas de Grupo !
 services.get('/grupo', getAllGrupo);
 services.get('/grupo/:grupoId', getGrupoById);
@@ -30,3 +30,8 @@ services.get('/receita', getAllReceita);
 services.get('/receita/:receitaId', getReceitaById);
 services.post('/receita', createReceita);
 services.delete('/receita/:receitaId', deleteReceita);
+
+// rotas de login
+services.post('/oauth/login', login);
+
+module.exports = services;
