@@ -6,11 +6,10 @@ module.exports.login = (request, response) => {
   const {email, password} = request.body;
   const rawString = 'select u.pass from usuario u where u.email = ?';
   const queryGetString = db.format('select u.id_user from usuario u where u.email = ?', email);
-
   const query = db.format(rawString, email);
   db.query(query, async (err, results) => {
     if (err) throw err;
-    const {pass } = results[0];
+    const { pass } = results[0];
     if(pass === password) {
       db.query(queryGetString, (errQuery, resultsId) => {
         if (errQuery) throw errQuery;

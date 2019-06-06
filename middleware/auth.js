@@ -1,17 +1,18 @@
 const { decodeToken } = require('./token');
 
-const isAuth = (request, response, next) => {
+module.exports.isAuth = (request, response, next) => {
   if (!request.headers.authorization) {
     return response.status(401).json({message: 'NOT_AUTHORIZED'});
   }
   const token = request.headers.authorization.split(' ')[1];
+  console.log(token)
   decodeToken(token)
-    .then( response => {
+    .then(response => {
+      console.log(response)
       request.user = response;
-      return next();
+      next();
     })
     .catch(err => {
-      response.status(err.status).send(err.message);
+      response.status(401).send(teste);
     });
 }
-module.exports = isAuth;

@@ -79,7 +79,7 @@ CREATE TABLE `ingredientes`
 (
  `id_alimento`     integer(45) NOT NULL ,
  `id_ingredientes` integer(45) NOT NULL auto_increment,
- `id_receita`      integer(45) NOT NULL ,
+ `id_receita`      integer(45) NULL ,
 
 PRIMARY KEY (`id_ingredientes`),
 KEY `fkIdx_80` (`id_alimento`),

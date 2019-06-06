@@ -4,7 +4,8 @@ const { getAllGrupo, getGrupoById, createGrupo, deleteGrupo  } = require('../con
 const { getAllImc, getImcById, createImc, deleteImc  } = require('../controller/imc');
 const { getAllReceita, getReceitaById, createReceita, deleteReceita  } = require('../controller/receita');
 const { login } = require('../controller/oauth');
-
+const { isAuth } = require('../middleware/auth');
+const { getAlimentos, getAlimentoById, getAlimentosByUserId, createAlimentos, deleteAlimento } = require('../controller/alimentos');
 const services = express.Router();
 
 // service to see the status of the API
@@ -33,5 +34,12 @@ services.delete('/receita/:receitaId', deleteReceita);
 
 // rotas de login
 services.post('/oauth/login', login);
+
+// rotas de alimento com middleware
+services.get('/alimento', getAlimentos);
+services.get('/alimento/:alimentoId', getAlimentoById);
+services.get('/alimento/byUser', (req, res) => res.status(300).send('teste'));
+services.post('/alimento', isAuth, createAlimentos);
+services.delete('/alimento/:alimento', isAuth, deleteAlimento);
 
 module.exports = services;
