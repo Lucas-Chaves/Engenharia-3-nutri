@@ -5,8 +5,8 @@ use exercicios;
 CREATE TABLE `usuario`
 (
  `id_user` integer(45) NOT NULL AUTO_INCREMENT ,
- `email`   varchar(45) NOT NULL ,
- `pass`    varchar(45) NOT NULL ,
+ `email`   varchar(255) NOT NULL ,
+ `pass`    varchar(255) NOT NULL ,
 
 PRIMARY KEY (`id_user`)
 );
@@ -32,7 +32,7 @@ USE exercicios;
 CREATE TABLE `grupo`
 (
  `id_grupo`    integer(20) NOT NULL auto_increment ,
- `nome`        varchar(45) NOT NULL ,
+ `nome`        varchar(255) NOT NULL ,
  `description` varchar(75) ,
 
 PRIMARY KEY (`id_grupo`)
@@ -45,7 +45,7 @@ CREATE TABLE `alimentos`
  `id_alimento`      integer(45) NOT NULL auto_increment,
  `id_user`          integer(45) NOT NULL ,
  `id_grupo`         integer(20) NOT NULL ,
- `nome`             varchar(45) NOT NULL ,
+ `nome`             varchar(255) NOT NULL ,
  `quatidade`        int NOT NULL ,
  `valor`            float ,
  `proteina`         float NOT NULL ,
@@ -67,7 +67,7 @@ use exercicios;
 CREATE TABLE `receita`
 (
  `id_receita` integer(45) NOT NULL auto_increment,
- `nome`       varchar(45) NOT NULL ,
+ `nome`       varchar(255) NOT NULL ,
  `descricao`  varchar(100) NOT NULL ,
 
 PRIMARY KEY (`id_receita`)
@@ -93,9 +93,9 @@ USE exercicios;
 CREATE TABLE `combinacao`
 (
  `id_combinacao`   integer(45) NOT NULL auto_increment,
- `nome`            varchar(45) NOT NULL ,
+ `nome`            varchar(255) NOT NULL ,
  `id_ingredientes` integer(45) NOT NULL ,
- `descricao`       varchar(45) NOT NULL ,
+ `descricao`       varchar(255) NOT NULL ,
 
 PRIMARY KEY (`id_combinacao`),
 KEY `fkIdx_93` (`id_ingredientes`),
