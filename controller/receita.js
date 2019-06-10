@@ -38,6 +38,9 @@ module.exports.createReceita = (request, response) => {
       let receitaId = results.insertId;
       alimentos.forEach(obj => {
         const newQuery = db.format('insert into ingredientes(id_alimento, id_receita) values ( ?, ?);', [obj, receitaId]);
+        db.query(newQuery, (errInsert, resultsInsert) => {
+          if (errInsert) throw errInsert;
+        });
       });
       return response.status(201).json({message: 'Receita cadastrado com sucesso !'});
     });
