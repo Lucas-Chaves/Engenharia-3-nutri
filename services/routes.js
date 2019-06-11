@@ -24,7 +24,7 @@ services.delete('/grupo/:grupoId', deleteGrupo);
 //Rotas para IMC
 services.get('/imc/:userId', getAllImc);
 services.get('/imc/:userId/:imcId', getImcById);
-services.post('/imc', createImc);
+services.post('/imc',isAuth, createImc);
 services.delete('/imc/:userId/:imcId', deleteImc);
 //Rotas para Receitas
 services.get('/receita', getAllReceita);
@@ -38,7 +38,6 @@ services.post('/oauth/login', login);
 // rotas de alimento com middleware
 services.get('/alimento', getAlimentos);
 services.get('/alimento/:alimentoId', getAlimentoById);
-services.get('/alimento/byUser', (req, res) => res.status(300).send('teste'));
 services.post('/alimento', isAuth, createAlimentos);
 services.delete('/alimento/:alimento', isAuth, deleteAlimento);
 
