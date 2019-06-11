@@ -49,7 +49,7 @@ module.exports.deleteGrupo = (request, response) => {
       const query = db.format(rawString, grupoId);
       db.query(query, (err, results) => {
         if (err) throw err;
-        return response.status(200).json({message: `Grupo com id ${grupoId} deletado com sucesso !`});
+        return response.status(201).json({message: `Grupo com id ${grupoId} deletado com sucesso !`});
       });
     } catch (error) {
       return response.status(505).json({error});

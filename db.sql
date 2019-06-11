@@ -1,103 +1,93 @@
-create database exercicios;
-
--- ************************************** `usuario`
-use exercicios;
-CREATE TABLE `usuario`
+create table grupo
 (
- `id_user` integer(45) NOT NULL AUTO_INCREMENT ,
- `email`   varchar(255) NOT NULL ,
- `pass`    varchar(255) NOT NULL ,
-
-PRIMARY KEY (`id_user`)
+    id_grupo    int(20) auto_increment
+        primary key,
+    nome        varchar(45) not null,
+    description varchar(75) null
 );
 
-
--- ************************************** `imc`
-USE exercicios;
-CREATE TABLE `imc`
+create table receita
 (
- `id_imc`     integer(45) NOT NULL auto_increment ,
- `id_user`    integer(45) NOT NULL ,
- `valor_imc`  float NOT NULL ,
- `created_at` timestamp NOT NULL ,
-
-PRIMARY KEY (`id_imc`),
-KEY `fkIdx_63` (`id_user`),
-CONSTRAINT `FK_63` FOREIGN KEY `fkIdx_63` (`id_user`) REFERENCES `usuario` (`id_user`)
+    id_receita int(45) auto_increment
+        primary key,
+    nome       varchar(45)  not null,
+    descricao  varchar(100) not null
 );
 
-
--- ************************************** `grupo`
-USE exercicios;
-CREATE TABLE `grupo`
+create table usuario
 (
- `id_grupo`    integer(20) NOT NULL auto_increment ,
- `nome`        varchar(255) NOT NULL ,
- `description` varchar(75) ,
-
-PRIMARY KEY (`id_grupo`)
+    id_user int(45) auto_increment
+        primary key,
+    email   varchar(45) not null,
+    pass    varchar(45) not null
 );
 
--- ************************************** `alimentos`
-USE exercicios;
-CREATE TABLE `alimentos`
+create table alimentos
 (
- `id_alimento`      integer(45) NOT NULL auto_increment,
- `id_user`          integer(45) NOT NULL ,
- `id_grupo`         integer(20) NOT NULL ,
- `nome`             varchar(255) NOT NULL ,
- `quatidade`        int NOT NULL ,
- `valor`            float ,
- `proteina`         float NOT NULL ,
- `carboidrato`      float NOT NULL ,
- `valor_energetico` float NOT NULL ,
-
-PRIMARY KEY (`id_alimento`),
-KEY `fkIdx_30` (`id_grupo`),
-CONSTRAINT `FK_30` FOREIGN KEY `fkIdx_30` (`id_grupo`) REFERENCES `grupo` (`id_grupo`),
-KEY `fkIdx_57` (`id_user`),
-CONSTRAINT `FK_57` FOREIGN KEY `fkIdx_57` (`id_user`) REFERENCES `usuario` (`id_user`)
+    id_alimento      int(45) auto_increment
+        primary key,
+    id_user          int(45)     not null,
+    id_grupo         int(20)     not null,
+    nome             varchar(45) not null,
+    proteina         float       not null,
+    carboidrato      float       not null,
+    valor_energetico float       not null,
+    constraint FK_30
+        foreign key (id_grupo) references grupo (id_grupo),
+    constraint FK_57
+        foreign key (id_user) references usuario (id_user)
 );
 
+create index fkIdx_30
+    on alimentos (id_grupo);
 
+create index fkIdx_57
+    on alimentos (id_user);
 
-
--- ************************************** `receita`
-use exercicios;
-CREATE TABLE `receita`
+create table imc
 (
- `id_receita` integer(45) NOT NULL auto_increment,
- `nome`       varchar(255) NOT NULL ,
- `descricao`  varchar(100) NOT NULL ,
-
-PRIMARY KEY (`id_receita`)
+    id_imc     int(45) auto_increment
+        primary key,
+    id_user    int(45)                             not null,
+    valor_imc  float                               not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+    constraint FK_63
+        foreign key (id_user) references usuario (id_user)
 );
 
--- ************************************** `ingredientes`
-use exercicios;
-CREATE TABLE `ingredientes`
-(
- `id_alimento`     integer(45) NOT NULL ,
- `id_ingredientes` integer(45) NOT NULL auto_increment,
- `id_receita`      integer(45) NULL ,
+create index fkIdx_63
+    on imc (id_user);
 
-PRIMARY KEY (`id_ingredientes`),
-KEY `fkIdx_80` (`id_alimento`),
-CONSTRAINT `FK_80` FOREIGN KEY `fkIdx_80` (`id_alimento`) REFERENCES `alimentos` (`id_alimento`),
-KEY `fkIdx_83` (`id_receita`),
-CONSTRAINT `FK_83` FOREIGN KEY `fkIdx_83` (`id_receita`) REFERENCES `receita` (`id_receita`)
+create table ingredientes
+(
+    id_alimento     int(45) not null,
+    id_ingredientes int(45) auto_increment
+        primary key,
+    id_receita      int(45) not null,
+    constraint FK_80
+        foreign key (id_alimento) references alimentos (id_alimento),
+    constraint FK_83
+        foreign key (id_receita) references receita (id_receita)
 );
 
--- ************************************** `combinacao`
-USE exercicios;
-CREATE TABLE `combinacao`
+create table combinacao
 (
- `id_combinacao`   integer(45) NOT NULL auto_increment,
- `nome`            varchar(255) NOT NULL ,
- `id_ingredientes` integer(45) NOT NULL ,
- `descricao`       varchar(255) NOT NULL ,
-
-PRIMARY KEY (`id_combinacao`),
-KEY `fkIdx_93` (`id_ingredientes`),
-CONSTRAINT `FK_93` FOREIGN KEY `fkIdx_93` (`id_ingredientes`) REFERENCES `ingredientes` (`id_ingredientes`)
+    id_combinacao   int(45) auto_increment
+        primary key,
+    nome            varchar(45) not null,
+    id_ingredientes int(45)     not null,
+    descricao       varchar(45) not null,
+    constraint FK_93
+        foreign key (id_ingredientes) references ingredientes (id_ingredientes)
+            on delete cascade
 );
+
+create index fkIdx_93
+    on combinacao (id_ingredientes);
+
+create index fkIdx_80
+    on ingredientes (id_alimento);
+
+create index fkIdx_83
+    on ingredientes (id_receita);
+
