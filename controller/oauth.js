@@ -13,7 +13,7 @@ module.exports.login = (request, response) => {
     if(pass === password) {
       db.query(queryGetString, (errQuery, resultsId) => {
         if (errQuery) throw errQuery;
-        const { id_usuario } = resultsId[0];
+        const { id_user: id_usuario } = resultsId[0];
         db.end();
         return response.status(200).json({
           message: 'LOGIN SUCESSFULLY',

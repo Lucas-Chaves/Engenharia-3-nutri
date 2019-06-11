@@ -5,7 +5,6 @@ module.exports.isAuth = (request, response, next) => {
     return response.status(401).json({message: 'NOT_AUTHORIZED'});
   }
   const token = request.headers.authorization.split(' ')[1];
-  console.log(token)
   decodeToken(token)
     .then(response => {
       console.log(response)
