@@ -1,5 +1,5 @@
 module.exports = {
-  PORT: process.env.PORT || 8000,
+  PORT: process.env.PORT || 3500,
   MYSQL_PORT: 6000,
   MYSQL_HOST: '127.0.0.1',
   MYSQL_DBNAME: 'exercicios',
