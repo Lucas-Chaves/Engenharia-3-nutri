@@ -32,8 +32,9 @@ module.exports.getImcById = (request, response) => {
 module.exports.createImc = (request, response) => {
     try {
       const rawString = 'insert into imc(id_user, valor_imc) value (?,?);';
-      const { idUser, valorImc } = request.body;
-      const query = db.format(rawString, [idUser, valorImc]);
+      const {user} = request;
+      const { valorImc } = request.body;
+      const query = db.format(rawString, [user, valorImc]);
       db.query(query, (err, results) => {
         if (err) throw err;
         response.setHeader('id', results.insertId);
